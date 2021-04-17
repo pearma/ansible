@@ -1,0 +1,37 @@
+hell,world!
+shard: {{ shard }}
+replica: {{ replica }}
+{% set count = namespace(value=1) %}
+
+{% set current = namespace(value=0) %}
+
+{% set current_shard   = namespace(value=0) %}
+
+{% set current_replica = namespace(value=0) %}
+
+
+{% set host_dict = dict( range(12) | zip(numofhosts)) %}
+
+{% for n in range(shard) %}
+    {% set current_shard.value = n %}
+    <shard-{{ n }}>
+        {% for n in range(replica) %}
+    <replica-{{ n }}>
+            {% set current_replica.value = n %}
+            {{ host_dict[count.value - 1] }}
+            {% if host_dict[count.value - 1] == thishost %}
+                {% set current.value = count.value -1 %}
+                {% set current.shard = current_shard.value %}
+                {% set current.replica = current_replica.value %}
+            {% endif %}            
+            {% set count.value = count.value + 1 %}
+            </replica-{{ n }}>
+        {% endfor %}     
+    </shard-{{ n }}>    
+{% endfor %}
+
+<current>
+    shard-{{current.shard}}
+    replica-{{current.replica}}
+    {{ host_dict[current.value] }}
+</current>

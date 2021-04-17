@@ -1,0 +1,17 @@
+ntpserver: 192.168.1.1
+shard: 4
+replica: 3
+thishost: c
+numofhosts: 
+   - a
+   - b
+   - c
+   - e
+   - f
+   - g
+   - h
+   - i
+   - j
+   - l
+   - m
+   - n

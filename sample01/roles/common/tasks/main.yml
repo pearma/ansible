@@ -1,0 +1,3 @@
+- name: Configure ntp file
+  template: src=ntp.conf.j2 dest=/home/mac/Workspace/github2/ansible/sample01/ntp.conf
+  tags: ntp
